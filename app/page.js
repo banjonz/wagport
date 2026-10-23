@@ -25,7 +25,7 @@ export default function Home() {
             <p>Your route, your date, a clear verdict and every deadline. What you&apos;re using now.</p>
           </div>
           <div className="tier main">
-            <h3>DIY Plan</h3><div className="price">AED 475 per pet · coming soon</div>
+            <h3>DIY Plan</h3><div className="price">AED 499 per pet · coming soon</div>
             <p>A dated plan for your exact dog, WhatsApp reminders before each deadline, and a check of your vet&apos;s paperwork against the rules before you fly.</p>
           </div>
           <div className="tier">
