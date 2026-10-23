@@ -1,20 +1,20 @@
 
 /* Layout: an export-paperwork desk. Form on the left like an application, the result on the right like a stamped file sheet. */
 :root{
-  --paper:#f3f6f5; --sheet:#ffffff; --ink:#14232b; --muted:#5a6b72; --rule:#d5dfdd;
-  --accent:#0e6b5c; --accent-soft:#dcefe9;
+  --paper:#f4f7f8; --sheet:#ffffff; --ink:#0a2b4c; --muted:#556877; --rule:#d6e0e4;
+  --accent:#0b7472; --accent-soft:#dff1ef; --brand-teal:#0d8583;
   --ok:#1f7a4a; --ok-soft:#e1f2e7; --warn:#a86400; --warn-soft:#fbefd9; --bad:#b4322a; --bad-soft:#f8e1de;
-  --display:"Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --display:"Lexend", "Helvetica Neue", Arial, sans-serif;
   --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0f1719; --sheet:#162125; --ink:#e4ecea; --muted:#9aaaae; --rule:#2a3a3f;
-  --accent:#4cc3a8; --accent-soft:#163a33;
+  --accent:#3fc2b4; --accent-soft:#123634; --brand-teal:#3fc2b4;
   --ok:#5fcf8f; --ok-soft:#143022; --warn:#f0b35a; --warn-soft:#352812; --bad:#f08279; --bad-soft:#3a1b18; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0f1719; --sheet:#162125; --ink:#e4ecea; --muted:#9aaaae; --rule:#2a3a3f;
-  --accent:#4cc3a8; --accent-soft:#163a33;
+  --accent:#3fc2b4; --accent-soft:#123634; --brand-teal:#3fc2b4;
   --ok:#5fcf8f; --ok-soft:#143022; --warn:#f0b35a; --warn-soft:#352812; --bad:#f08279; --bad-soft:#3a1b18; color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -24,7 +24,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:
 .wrap{max-width:1080px;margin:0 auto}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-bottom:1px solid var(--rule)}
 .brand{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
-.brand span{color:var(--accent)}
+.brand .word span{color:var(--brand-teal)}
+a.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:44px;height:44px;border-radius:10px;background:#fff;border:1px solid var(--rule);display:block}
 .draft{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--rule);padding:3px 8px;border-radius:4px}
 .hero{padding-block:36px 28px;display:grid;gap:12px;max-width:720px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
