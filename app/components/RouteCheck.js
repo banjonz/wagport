@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
-import { RULES, LAUNCH } from '../lib/routes';
+import { RULES, LAUNCH, routeFor } from '../lib/routes';
 
 const DAY = 864e5;
 const addDays = (d, n) => new Date(d.getTime() + n * DAY);
@@ -17,8 +17,9 @@ function startOfToday() {
   return t;
 }
 
-export default function RouteCheck({ initialKey = 'GB' }) {
+export default function RouteCheck({ initialKey = 'GB', initialSpecies = 'dog' }) {
   const [today, setToday] = useState(null);
+  const [species, setSpecies] = useState(initialSpecies);
   const [dest, setDest] = useState(initialKey);
   const [travel, setTravel] = useState('');
   const [age, setAge] = useState(24);
@@ -37,13 +38,14 @@ export default function RouteCheck({ initialKey = 'GB' }) {
   const [touched, setTouched] = useState(false);
   const tracked = useRef(new Set());
   useEffect(() => {
-    if (!touched || !travel || tracked.current.has(dest)) return;
+    const id = dest + ':' + species;
+    if (!touched || !travel || tracked.current.has(id)) return;
     const t = setTimeout(() => {
-      tracked.current.add(dest);
-      try { track('route_check', { route: dest }); } catch (e) {}
+      tracked.current.add(id);
+      try { track('route_check', { route: dest, species }); } catch (e) {}
     }, 1500);
     return () => clearTimeout(t);
-  }, [touched, dest, travel, age, vacc, desexed]);
+  }, [touched, dest, species, travel, age, vacc, desexed]);
   const touch = (fn) => (e) => { setTouched(true); fn(e); };
 
   const launch = Object.entries(RULES.routes).filter(([k]) => LAUNCH.includes(k));
@@ -51,7 +53,9 @@ export default function RouteCheck({ initialKey = 'GB' }) {
 
   const result = useMemo(() => {
     if (!today || !travel) return null;
-    const r = RULES.routes[dest];
+    const r = routeFor(dest, species);
+    const dog = species === 'dog';
+    const pet = dog ? 'dog' : 'cat';
     const tv = new Date(travel + 'T00:00:00');
     const days = Math.round((tv - today) / DAY);
     const need = vacc ? r.min_lead_days_if_vaccinated : r.min_lead_days_from_scratch;
@@ -59,17 +63,18 @@ export default function RouteCheck({ initialKey = 'GB' }) {
 
     const alerts = [];
     if (ageBad)
-      alerts.push(['bad', `${r.name} needs the dog to be at least ${r.min_age_months} months old on arrival${dest === 'NZ' ? ' (approximate minimum under MPI guidance)' : ''}.`]);
-    if (dest === 'US')
+      alerts.push(['bad', `${r.name} needs the ${pet} to be at least ${r.min_age_months} months old on arrival${dest === 'NZ' ? ' (approximate minimum under MPI guidance)' : ''}.`]);
+    if (dest === 'US' && dog)
       alerts.push(['warn', 'The UAE is on the CDC high-risk list. Your dog must fly into a US airport with a CDC-registered animal care facility, with a reservation made in advance.']);
-    if (dest === 'EU')
+    if (dest === 'EU' && dog)
       alerts.push(['warn', 'Going to Finland, Ireland or Malta? Add a vet tapeworm treatment 24 to 120 hours before entry.']);
-    if (dest === 'CA' && age < 8)
+    if (dest === 'CA' && dog && age < 8)
       alerts.push(['warn', 'Under 8 months: check whether your puppy needs a health certificate issued within 72 hours of arrival.']);
-    if (dest === 'FR')
+    if (dest === 'FR' && dog)
       alerts.push(['warn', "France restricts attack-type (category 1 and 2) dogs. Check your dog's breed before booking."]);
+    if (r.note) alerts.push(['warn', r.note]);
     if (r.lead_note) alerts.push(['warn', r.lead_note]);
-    if (!desexed && (dest === 'AU' || dest === 'NZ'))
+    if (dog && !desexed && (dest === 'AU' || dest === 'NZ'))
       alerts.push(['warn', 'Entire (not desexed) dogs need a Brucella canis blood test and a no-breeding declaration.']);
     (r.alerts || []).forEach((a) => alerts.push(['warn', a]));
     if (!LAUNCH.includes(dest))
@@ -82,7 +87,7 @@ export default function RouteCheck({ initialKey = 'GB' }) {
       cls = 'v-bad'; stamp = 'Past date'; head = 'That date has passed'; sub = 'Pick a future travel date.';
     } else if (days < need || ageBad) {
       cls = 'v-bad'; stamp = 'Not in time';
-      head = ageBad ? 'Your dog is too young for this route' : `You need about ${need} days. You have ${days}.`;
+      head = ageBad ? `Your ${pet} is too young for this route` : `You need about ${need} days. You have ${days}.`;
       sub = `Earliest realistic travel date: ${fmt(addDays(today, need))}.`;
     } else if (days < need + 14) {
       cls = 'v-warn'; stamp = 'Tight';
@@ -93,7 +98,7 @@ export default function RouteCheck({ initialKey = 'GB' }) {
       head = `You have ${days} days. This route needs about ${need}.`;
       sub = 'Follow the deadlines below in order.';
     }
-    if (dest === 'US' && days >= 28 && days < need && !vacc)
+    if (dest === 'US' && dog && days >= 28 && days < need && !vacc)
       sub += ' Or travel sooner and accept a 28-day quarantine at a CDC-registered facility.';
 
     const steps = [...r.steps, ...RULES.origin_export.steps.map((s) => ({ ...s, uae: true }))]
@@ -119,11 +124,23 @@ export default function RouteCheck({ initialKey = 'GB' }) {
       .sort((a, b) => a.sortKey - b.sortKey);
 
     return { r, days, need, alerts, cls, stamp, head, sub, steps };
-  }, [today, travel, dest, age, vacc, desexed]);
+  }, [today, travel, dest, species, age, vacc, desexed]);
 
   return (
     <div className="tool">
       <form onSubmit={(e) => e.preventDefault()} noValidate>
+        <div>
+          <span className="lbl" id="species-lbl">Your pet</span>
+          <div className="seg" role="radiogroup" aria-labelledby="species-lbl">
+            {[['dog', 'Dog'], ['cat', 'Cat']].map(([v, l]) => (
+              <label key={v} className={species === v ? 'on' : ''}>
+                <input type="radio" name="species" value={v} checked={species === v}
+                  onChange={touch(() => setSpecies(v))} />
+                {l}
+              </label>
+            ))}
+          </div>
+        </div>
         <div>
           <label htmlFor="dest">Moving to</label>
           <select id="dest" value={dest} onChange={touch((e) => setDest(e.target.value))}>
@@ -140,11 +157,11 @@ export default function RouteCheck({ initialKey = 'GB' }) {
           </select>
         </div>
         <div>
-          <label htmlFor="travel">Dog&apos;s travel date</label>
+          <label htmlFor="travel">Travel date</label>
           <input type="date" id="travel" value={travel} onChange={touch((e) => setTravel(e.target.value))} />
         </div>
         <div>
-          <label htmlFor="age">Dog&apos;s age on travel day (months)</label>
+          <label htmlFor="age">Age on travel day (months)</label>
           <input type="number" id="age" min="2" max="240" value={age}
             onChange={touch((e) => setAge(+e.target.value || 0))} />
         </div>
@@ -159,7 +176,7 @@ export default function RouteCheck({ initialKey = 'GB' }) {
             Desexed (spayed or neutered)
           </label>
         </div>
-        <p className="hint">Example values are filled in. Change them to match your dog.</p>
+        <p className="hint">Example values are filled in. Change them to match your pet.</p>
       </form>
 
       <div className="sheet" aria-live="polite">
@@ -176,6 +193,7 @@ export default function RouteCheck({ initialKey = 'GB' }) {
             </div>
             <div className="facts">
               <span>Route <b>UAE → {result.r.name}</b></span>
+              <span>Pet <b>{species === 'dog' ? 'Dog' : 'Cat'}</b></span>
               <span>Days left <b>{Math.max(result.days, 0)}</b></span>
               <span>Minimum lead <b>{result.need} days</b></span>
               <span>Rule status <span className={`tag ${result.r.status}`}>

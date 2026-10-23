@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import RouteCheck from '../../components/RouteCheck';
-import { RULES, SLUGS, keyFromSlug, routeName, isLaunch, relWindow } from '../../lib/routes';
+import { RULES, SLUGS, keyFromSlug, routeName, isLaunch, relWindow, routeFor } from '../../lib/routes';
+
+const only = (s) => s.species && s.species.length === 1 ? (s.species[0] === 'dog' ? 'Dogs only' : 'Cats only') : null;
 
 export const dynamicParams = false;
 
@@ -14,8 +16,8 @@ export async function generateMetadata({ params }) {
   if (!key) return {};
   const r = RULES.routes[key];
   return {
-    title: `Moving a dog from the UAE to ${r.name}`,
-    description: `${r.classification}. Every step, deadline and official source for taking your dog from Dubai or Abu Dhabi to ${routeName(key)}.`,
+    title: `Moving a dog or cat from the UAE to ${r.name}`,
+    description: `${r.classification}. Every step, deadline and official source for taking your dog or cat from Dubai or Abu Dhabi to ${routeName(key)}.`,
   };
 }
 
@@ -24,25 +26,31 @@ export default async function RouteGuide({ params }) {
   const key = keyFromSlug(route);
   if (!key) notFound();
   const r = RULES.routes[key];
+  const c = routeFor(key, 'cat');
+  const catLead = c.min_lead_days_from_scratch !== r.min_lead_days_from_scratch;
   const steps = [...r.steps, ...RULES.origin_export.steps.map((s) => ({ ...s, uae: true }))];
 
   return (
     <div>
       <div className="guide">
         <div className="eyebrow">{isLaunch(key) ? 'Route guide' : 'Route guide · preview'}</div>
-        <h1>Moving a dog from the UAE to {routeName(key)}</h1>
+        <h1>Moving a dog or cat from the UAE to {routeName(key)}</h1>
         <p className="lede">
           {r.classification}. Plan on about {r.min_lead_days_from_scratch} days if you&apos;re
-          starting from scratch, or {r.min_lead_days_if_vaccinated} if your dog is already
-          microchipped and rabies-vaccinated.
+          starting from scratch, or {r.min_lead_days_if_vaccinated} if your pet is already
+          microchipped and rabies-vaccinated{catLead ? ' (dogs)' : ''}.
+          {catLead && <> For cats: about {c.min_lead_days_from_scratch} days from scratch, or {c.min_lead_days_if_vaccinated} if already vaccinated.</>}
         </p>
+        {(r.cat?.note || c.classification !== r.classification) && (
+          <p className="lede"><b>Cats:</b> {r.cat?.note || c.classification + '.'}</p>
+        )}
         <div className="sheet">
           <ol className="steps">
             {steps.map((s) => (
               <li key={s.id} className="step">
                 <div className="when">{relWindow(s)}</div>
                 <div>
-                  <h3>{s.title}{s.uae && <> <span className="tag unverified">UAE side · to confirm</span></>}</h3>
+                  <h3>{s.title}{only(s) && <span className="tag species">{only(s)}</span>}{s.uae && <> <span className="tag unverified">UAE side · to confirm</span></>}</h3>
                   <p>{s.detail}</p>
                 </div>
               </li>
@@ -55,6 +63,9 @@ export default async function RouteGuide({ params }) {
                 {i > 0 && ' · '}
                 <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a>
               </span>
+            ))}
+            {(r.cat?.sources || []).map((s) => (
+              <span key={s.url}> · <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></span>
             ))}
             . Last checked {r.last_verified}.
           </div>

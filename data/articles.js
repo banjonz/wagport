@@ -16,6 +16,8 @@ const SRC = {
   mpiIhs: { title: 'MPI: Import Health Standard Cats and Dogs 2026', url: 'https://www.mpi.govt.nz/dmsdocument/71909-Cats-and-Dogs-2026-Import-Health-Standard' },
   mpiPage: { title: 'MPI: Bringing cats and dogs to NZ', url: 'https://www.mpi.govt.nz/bring-send-to-nz/pets-travelling-to-nz/bringing-cats-and-dogs-to-nz' },
   gnCosts: { title: 'Gulf News: what it costs to own and relocate a pet in the UAE', url: 'https://gulfnews.com/amp/your-money/community-tips/uae-own-a-pet-or-planning-on-getting-one-heres-how-much-it-costs-and-how-to-plan-your-finances-1.1617293962639' },
+  cdcCat: { title: 'CDC: Bringing a cat into the United States', url: 'https://www.cdc.gov/importation/bringing-an-animal-into-the-united-states/cats.html' },
+  cfiaCat: { title: 'CFIA: Bringing cats to Canada', url: 'https://inspection.canada.ca/en/importing-food-plants-animals/pets/cats' },
   gnK9: { title: 'Gulf News: K9 Jets Dubai–London service and relocator pricing', url: 'https://gulfnews.com/amp/story/business%2Faviation%2Fpay-per-seat-private-jet-charter-service-for-pets-k9-jets-to-launch-dubai-london-service-in-september-1.96992708' },
 };
 
@@ -240,6 +242,29 @@ const articles = [
       ] },
     ],
     sources: [SRC.govuk, SRC.euEntry, SRC.cdcForeign, SRC.mpiIhs],
+  },
+  {
+    slug: 'moving-cat-from-uae',
+    title: 'Moving a cat out of the UAE: what is different from a dog?',
+    description: 'Cat rules for the UK, EU, USA, Canada, Australia and New Zealand from the UAE, and the dog-only steps cats can skip.',
+    lead: 'Cats follow the same core rules as dogs on most routes: microchip first, then rabies vaccine, then the waiting period. The differences are in the extras. Cats skip the tapeworm treatment for the UK and EU, the CDC dog rules for the USA, and the dog disease blood tests for Australia and New Zealand.',
+    sections: [
+      { h: 'Route by route', table: { head: ['Destination', 'Same as dogs', 'Cats skip'], rows: [
+        ['United Kingdom', 'Microchip, rabies vaccine 21+ days before travel, GB pet health certificate', 'Tapeworm treatment, banned-breed rules'],
+        ['European Union', 'Microchip, rabies vaccine 21+ days before entry, animal health certificate', 'Echinococcus treatment for Finland, Ireland, Malta'],
+        ['United States', 'Nothing federal beyond looking healthy on arrival', 'All CDC dog rules: titer, CDC facility, import form'],
+        ['Canada', 'Rabies vaccination certificate from 3 months old', 'The puppy health certificate rule'],
+        ['Australia', 'RNATT, 180-day wait, import permit, Mickleham quarantine', 'Dog disease blood tests'],
+        ['New Zealand', 'Rabies, RNATT, permit, quarantine', 'Dog blood tests, the first external parasite treatment'],
+      ] } },
+      { h: 'The USA is the easy one for cats', p: [
+        'The UAE is on the CDC high-risk list for dog rabies, which makes the USA one of the hardest routes for dogs. Those rules do not apply to cats. CDC does not require a rabies vaccine for cats, but many states and airlines do, so vaccinate anyway and carry the certificate.',
+      ] },
+      { h: 'Australia and New Zealand still take six months', p: [
+        'The long lead time comes from the rabies blood test (RNATT) and the waiting period after it, and both apply to cats. Start at least seven months ahead, the same as for a dog.',
+      ] },
+    ],
+    sources: [SRC.govuk, SRC.euEntry, SRC.cdcCat, SRC.cfiaCat, SRC.daffGuides, SRC.mpiIhs],
   },
 ];
 

@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 export const metadata = {
   metadataBase: new URL('https://wagport.co'),
   title: {
-    default: 'Wagport: Moving your dog out of the UAE',
+    default: 'Wagport: Moving your dog or cat out of the UAE',
     template: '%s | Wagport',
   },
   openGraph: {
@@ -14,7 +14,7 @@ export const metadata = {
     locale: 'en_GB',
   },
   description:
-    'Free route check for moving a dog from the UAE to the UK, EU, Australia or New Zealand. Every deadline worked back from official government rules.',
+    'Free route check for moving a dog or cat from the UAE to the UK, EU, Australia or New Zealand. Every deadline worked back from official government rules.',
 };
 
 export default function RootLayout({ children }) {

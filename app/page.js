@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <>
       <div className="hero">
-        <div className="eyebrow">Leaving the UAE with a dog</div>
-        <h1>Will your dog make the flight?</h1>
+        <div className="eyebrow">Leaving the UAE with a dog or cat</div>
+        <h1>Will your pet make the flight?</h1>
         <p className="lede">
           Pick where you&apos;re moving and your travel date. We work backwards from official
           government rules and show every deadline, from rabies tests to the MOCCAE export
@@ -19,7 +19,7 @@ export default function Home() {
       <RouteCheck initialKey="GB" />
 
       <section className="more">
-        <h2>From a free check to a dog on the plane</h2>
+        <h2>From a free check to a pet on the plane</h2>
         <div className="tiers">
           <div className="tier">
             <h3>Free check</h3><div className="price">Free</div>
@@ -27,7 +27,7 @@ export default function Home() {
           </div>
           <div className="tier main">
             <h3>DIY Plan</h3><div className="price">AED 499 per pet · coming soon</div>
-            <p>A dated plan for your exact dog, WhatsApp reminders before each deadline, and a check of your vet&apos;s paperwork against the rules before you fly.</p>
+            <p>A dated plan for your exact dog or cat, WhatsApp reminders before each deadline, and a check of your vet&apos;s paperwork against the rules before you fly.</p>
           </div>
           <div className="tier">
             <h3>Relocator match</h3><div className="price">Free to you</div>

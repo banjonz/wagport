@@ -3,7 +3,7 @@ import { RULES, LAUNCH, SLUGS } from '../lib/routes';
 
 export const metadata = {
   title: 'Route guides',
-  description: 'Step-by-step guides for moving a dog out of the UAE, built from official government rules.',
+  description: 'Step-by-step guides for moving a dog or cat out of the UAE, built from official government rules.',
 };
 
 export default function Guides() {
@@ -21,7 +21,7 @@ export default function Guides() {
   return (
     <div className="guide">
       <div className="eyebrow">Route guides</div>
-      <h1>Moving a dog out of the UAE</h1>
+      <h1>Moving a dog or cat out of the UAE</h1>
       <p className="lede">Pick your destination for the full list of steps, timings and official sources.</p>
       <ul className="routes-list">{launch.map(item)}</ul>
       <h2 style={{ fontFamily: 'var(--display)', margin: '12px 0 0' }}>Coming soon</h2>

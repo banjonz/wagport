@@ -1,10 +1,13 @@
 {
   "meta": {
-    "version": "0.2",
-    "species": "dog",
+    "version": "0.3",
+    "species": [
+      "dog",
+      "cat"
+    ],
     "origin": "AE",
     "built": "2026-10-23",
-    "note": "Day offsets are relative to the date the dog arrives at (or is shipped to) the destination: negative = before. Every rule carries a source and last_verified date. status: verified = read on the official page; partial = official classification verified, some timings taken from official certificates of other exporting countries or secondary sources; unverified = needs an official source before going live."
+    "note": "Day offsets are relative to the date the dog arrives at (or is shipped to) the destination: negative = before. Every rule carries a source and last_verified date. status: verified = read on the official page; partial = official classification verified, some timings taken from official certificates of other exporting countries or secondary sources; unverified = needs an official source before going live. Steps without a 'species' field apply to dogs and cats; 'species' limits a step to the listed animals. A route's 'cat' object overrides lead times, status, alerts and notes for cats."
   },
   "origin_export": {
     "country": "United Arab Emirates",
@@ -69,7 +72,10 @@
           "window": {
             "from": -5,
             "to": -1
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "gb-declaration",
@@ -84,7 +90,10 @@
         {
           "id": "gb-breeds",
           "title": "Banned breeds check",
-          "detail": "Banned breeds cannot enter without a valid Certificate of Exemption."
+          "detail": "Banned breeds cannot enter without a valid Certificate of Exemption.",
+          "species": [
+            "dog"
+          ]
         }
       ],
       "sources": [
@@ -104,7 +113,12 @@
           "official": true
         }
       ],
-      "last_verified": "2026-10-23"
+      "last_verified": "2026-10-23",
+      "cat": {
+        "status": "verified",
+        "note": "Cats follow the same rabies, microchip and certificate rules as dogs, with no tapeworm treatment.",
+        "last_verified": "2026-10-23"
+      }
     },
     "EU": {
       "name": "European Union",
@@ -144,7 +158,10 @@
             "from": -5,
             "to": -1
           },
-          "conditional": "FI/IE/MT only"
+          "conditional": "FI/IE/MT only",
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "eu-declaration",
@@ -169,7 +186,12 @@
           "official": true
         }
       ],
-      "last_verified": "2026-10-23"
+      "last_verified": "2026-10-23",
+      "cat": {
+        "status": "verified",
+        "note": "Cats follow the same rabies, microchip and certificate rules as dogs, with no tapeworm treatment.",
+        "last_verified": "2026-10-23"
+      }
     },
     "FR": {
       "name": "France",
@@ -215,7 +237,10 @@
           "id": "fr-breeds",
           "title": "France dangerous-dog rules",
           "detail": "France restricts 'category 1' attack-type dogs (import of these is understood to be banned) and requires a detention permit for category 2. Check your dog's breed or type before booking.",
-          "conditional": "to confirm"
+          "conditional": "to confirm",
+          "species": [
+            "dog"
+          ]
         }
       ],
       "sources": [
@@ -236,7 +261,12 @@
         }
       ],
       "last_verified": "2026-10-23",
-      "todo": "Read the French ministry page on category 1/2 dogs (blocked automated reading) and confirm the import ban wording."
+      "todo": "Read the French ministry page on category 1/2 dogs (blocked automated reading) and confirm the import ban wording.",
+      "cat": {
+        "status": "verified",
+        "note": "Cats follow the same rabies, microchip and certificate rules as dogs, with no tapeworm treatment.",
+        "last_verified": "2026-10-23"
+      }
     },
     "US": {
       "name": "United States",
@@ -250,7 +280,10 @@
           "id": "us-chip",
           "title": "Microchip",
           "detail": "Implanted before the rabies vaccine or the vaccine is invalid.",
-          "rule": "before rabies vaccine"
+          "rule": "before rabies vaccine",
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "us-rabies",
@@ -258,7 +291,10 @@
           "detail": "First vaccine at 12 weeks or older and at least 28 days before entry. Dog must be at least 6 months old on arrival.",
           "window": {
             "to": -28
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "us-titer",
@@ -266,7 +302,10 @@
           "detail": "Blood drawn at least 30 days after first valid vaccine and at least 28 days before entry. Without a valid titer the dog must do a 28-day quarantine at a CDC-registered facility.",
           "window": {
             "to": -28
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "us-acf",
@@ -274,7 +313,10 @@
           "detail": "Mandatory for foreign-vaccinated dogs from high-risk countries: exam + revaccination (+28-day quarantine if no valid titer). Fly directly into that airport.",
           "window": {
             "to": -30
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "us-cert",
@@ -283,7 +325,10 @@
           "window": {
             "from": -30,
             "to": -1
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "us-form",
@@ -292,7 +337,29 @@
           "window": {
             "from": -7,
             "to": -1
-          }
+          },
+          "species": [
+            "dog"
+          ]
+        },
+        {
+          "id": "us-cat-health",
+          "title": "Healthy on arrival",
+          "detail": "CDC does not require a rabies vaccine or import form for cats. Cats can be examined at the port of entry if they look sick.",
+          "species": [
+            "cat"
+          ]
+        },
+        {
+          "id": "us-cat-rabies",
+          "title": "Rabies vaccination (state and airline rules)",
+          "detail": "Many US states, and most airlines, expect a current rabies vaccine. Get it done and carry the certificate. Check your destination state.",
+          "window": {
+            "to": -21
+          },
+          "species": [
+            "cat"
+          ]
         }
       ],
       "sources": [
@@ -307,7 +374,24 @@
           "official": true
         }
       ],
-      "last_verified": "2026-10-23"
+      "last_verified": "2026-10-23",
+      "cat": {
+        "status": "partial",
+        "min_lead_days_from_scratch": 21,
+        "min_lead_days_if_vaccinated": 7,
+        "min_age_months": null,
+        "classification": "CDC has no federal rabies requirement for cats",
+        "alerts": [],
+        "lead_note": "No federal waiting period for cats. The 21-day buffer covers state, airline and UAE export expectations (to confirm).",
+        "sources": [
+          {
+            "title": "CDC: Bringing a cat into the United States",
+            "url": "https://www.cdc.gov/importation/bringing-an-animal-into-the-united-states/cats.html",
+            "official": true
+          }
+        ],
+        "last_verified": "2026-10-23"
+      }
     },
     "CA": {
       "name": "Canada",
@@ -320,7 +404,7 @@
         {
           "id": "ca-rabies",
           "title": "Rabies vaccination certificate",
-          "detail": "Required for dogs over 3 months. Issued by a licensed vet, in English or French, identifying the dog (breed, colour, weight) and showing current vaccination with vaccine name, date and validity.",
+          "detail": "Required for dogs and cats aged 3 months or older. Issued by a licensed vet, in English or French, identifying the animal (breed, colour, weight) and showing current vaccination with vaccine name, date and validity.",
           "window": {
             "to": -7
           }
@@ -329,7 +413,10 @@
           "id": "ca-healthcert",
           "title": "Health certificate (puppies only)",
           "detail": "Dogs 8 months or older travelling as personal pets need only the rabies certificate. Unaccompanied dogs under 8 months need a vet health certificate issued within 72 hours of arrival.",
-          "conditional": "under 8 months"
+          "conditional": "under 8 months",
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "ca-chip",
@@ -363,7 +450,20 @@
         }
       ],
       "last_verified": "2026-10-23",
-      "todo": "CFIA personal-pet dog page failed to load; confirm certificate contents and the high-risk ban's scope for personal pets."
+      "todo": "CFIA personal-pet dog page failed to load; confirm certificate contents and the high-risk ban's scope for personal pets.",
+      "cat": {
+        "status": "partial",
+        "alerts": [],
+        "min_age_months": null,
+        "sources": [
+          {
+            "title": "CFIA: Bringing cats to Canada",
+            "url": "https://inspection.canada.ca/en/importing-food-plants-animals/pets/cats",
+            "official": true
+          }
+        ],
+        "last_verified": "2026-10-23"
+      }
     },
     "AU": {
       "name": "Australia",
@@ -402,13 +502,28 @@
           "detail": "Apply after the RNATT declaration is in place; book Mickleham quarantine."
         },
         {
+          "id": "au-cat-checks",
+          "title": "Pre-export vet checks and parasite treatments",
+          "detail": "Cats skip the dog disease blood tests. Your vet still does the exam and parasite treatments set out in the UAE export certificate (windows to confirm).",
+          "window": {
+            "from": -5,
+            "to": -1
+          },
+          "species": [
+            "cat"
+          ]
+        },
+        {
           "id": "au-tests",
           "title": "Pre-export tests",
           "detail": "Leishmania (all dogs), Brucella canis (entire dogs), Ehrlichia canis within 45 days of export, per DAFF-negotiated certificates (UAE certificate to confirm).",
           "window": {
             "from": -45,
             "to": -2
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "au-quarantine",
@@ -442,7 +557,12 @@
         }
       ],
       "last_verified": "2026-10-23",
-      "todo": "DAFF Group 3 dog guide blocked automated reading; confirm test list and RNATT-to-vaccine gap against the UAE-specific certificate."
+      "todo": "DAFF Group 3 dog guide blocked automated reading; confirm test list and RNATT-to-vaccine gap against the UAE-specific certificate.",
+      "cat": {
+        "status": "partial",
+        "note": "Cats follow the same RNATT, 180-day wait, permit and Mickleham quarantine rules as dogs.",
+        "last_verified": "2026-10-23"
+      }
     },
     "NZ": {
       "name": "New Zealand",
@@ -492,7 +612,10 @@
           "window": {
             "from": -44,
             "to": -14
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "nz-int1",
@@ -510,12 +633,15 @@
           "window": {
             "from": -30,
             "to": -3
-          }
+          },
+          "species": [
+            "dog"
+          ]
         },
         {
           "id": "nz-ext2",
-          "title": "External parasite treatment #2",
-          "detail": "Within 16 days before shipment.",
+          "title": "External parasite treatment (final)",
+          "detail": "Within 16 days before shipment. Cats need only this one external treatment.",
           "window": {
             "from": -16,
             "to": -2
@@ -528,7 +654,22 @@
           "window": {
             "from": -5,
             "to": -1
-          }
+          },
+          "species": [
+            "dog"
+          ]
+        },
+        {
+          "id": "nz-cat-int2",
+          "title": "Internal parasite treatment #2",
+          "detail": "Within 5 days before shipment.",
+          "window": {
+            "from": -5,
+            "to": -1
+          },
+          "species": [
+            "cat"
+          ]
         },
         {
           "id": "nz-inspect",
@@ -568,7 +709,12 @@
         }
       ],
       "last_verified": "2026-10-23",
-      "todo": "Confirm UAE's category in MPI-STD-SAA Schedule 9 before launch."
+      "todo": "Confirm UAE's category in MPI-STD-SAA Schedule 9 before launch.",
+      "cat": {
+        "status": "partial",
+        "note": "Cats skip the Babesia, Leishmania, Leptospira, heartworm and Brucella tests required for dogs.",
+        "last_verified": "2026-10-23"
+      }
     },
     "RU": {
       "name": "Russia",
@@ -627,7 +773,11 @@
         }
       ],
       "last_verified": "2026-10-23",
-      "todo": "Only secondary sources so far; confirm on fsvps.gov.ru (EAEU Decision 317, ch. 15 and 40) before launch."
+      "todo": "Only secondary sources so far; confirm on fsvps.gov.ru (EAEU Decision 317, ch. 15 and 40) before launch.",
+      "cat": {
+        "status": "partial",
+        "last_verified": "2026-10-23"
+      }
     }
   }
 }

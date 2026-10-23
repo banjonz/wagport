@@ -25,6 +25,19 @@ export const routeName = (key) =>
 
 export const isLaunch = (key) => LAUNCH.includes(key);
 
+export const SPECIES = { dog: 'Dog', cat: 'Cat' };
+
+// A step applies to a species unless it lists other species only.
+export const stepFor = (step, species) => !step.species || step.species.includes(species);
+
+// The route as it applies to one species: cat overrides merged in, steps filtered.
+export function routeFor(key, species = 'dog') {
+  const base = RULES.routes[key];
+  const { cat, ...route } = base;
+  const merged = species === 'cat' && cat ? { ...route, ...cat } : route;
+  return { ...merged, steps: base.steps.filter((s) => stepFor(s, species)) };
+}
+
 // Describe a step's window relative to travel day, without a date.
 export function relWindow(step) {
   const w = step.window;
