@@ -1,0 +1,633 @@
+{
+  "meta": {
+    "version": "0.2",
+    "species": "dog",
+    "origin": "AE",
+    "built": "2026-10-23",
+    "note": "Day offsets are relative to the date the dog arrives at (or is shipped to) the destination: negative = before. Every rule carries a source and last_verified date. status: verified = read on the official page; partial = official classification verified, some timings taken from official certificates of other exporting countries or secondary sources; unverified = needs an official source before going live."
+  },
+  "origin_export": {
+    "country": "United Arab Emirates",
+    "authority": "MOCCAE (Ministry of Climate Change and Environment)",
+    "status": "unverified",
+    "steps": [
+      {
+        "id": "uae-export-cert",
+        "title": "MOCCAE export permit + health certificate",
+        "detail": "Apply through the MOCCAE portal/app once destination documents are ready. Secondary sources report the permit is issued in 24–48h and the health certificate 24–72h before departure.",
+        "window": {
+          "from": -5,
+          "to": -1
+        },
+        "sources": [
+          {
+            "title": "Sandy Times: travelling with pets (UAE)",
+            "url": "https://sandytimes.ae/articles/4511/travelling-with-pets-a-practical-guide-for-the-uae-residents",
+            "official": false
+          }
+        ],
+        "last_verified": "2026-10-23",
+        "todo": "Confirm exact lead time and validity on moccae.gov.ae before launch."
+      }
+    ]
+  },
+  "routes": {
+    "GB": {
+      "name": "United Kingdom (Great Britain)",
+      "classification": "UAE is a listed country: no rabies blood test",
+      "status": "verified",
+      "min_lead_days_from_scratch": 25,
+      "min_lead_days_if_vaccinated": 10,
+      "steps": [
+        {
+          "id": "gb-chip",
+          "title": "Microchip",
+          "detail": "Must be implanted before the rabies vaccination.",
+          "rule": "before rabies vaccine"
+        },
+        {
+          "id": "gb-rabies",
+          "title": "Rabies vaccination",
+          "detail": "Travel at least 21 full days after the first vaccination (or last of the primary course).",
+          "window": {
+            "to": -21
+          }
+        },
+        {
+          "id": "gb-ghc",
+          "title": "Great Britain pet health certificate",
+          "detail": "Signed, stamped and dated by an official veterinarian. Pet must enter GB within 10 days of issue.",
+          "window": {
+            "from": -10,
+            "to": -1
+          }
+        },
+        {
+          "id": "gb-tapeworm",
+          "title": "Tapeworm treatment (dogs)",
+          "detail": "Given by a vet no less than 24 hours and no more than 5 days before arrival.",
+          "window": {
+            "from": -5,
+            "to": -1
+          }
+        },
+        {
+          "id": "gb-declaration",
+          "title": "Non-commercial declaration",
+          "detail": "Required if not selling or transferring ownership."
+        },
+        {
+          "id": "gb-route",
+          "title": "Approved route",
+          "detail": "Must travel on an approved route (cargo into an approved GB airport)."
+        },
+        {
+          "id": "gb-breeds",
+          "title": "Banned breeds check",
+          "detail": "Banned breeds cannot enter without a valid Certificate of Exemption."
+        }
+      ],
+      "sources": [
+        {
+          "title": "GOV.UK: Bringing your pet to Great Britain",
+          "url": "https://www.gov.uk/bring-pet-to-great-britain",
+          "official": true
+        },
+        {
+          "title": "GOV.UK: Which pet travel document you need",
+          "url": "https://www.gov.uk/bring-pet-to-uk/which-pet-travel-document",
+          "official": true
+        },
+        {
+          "title": "GOV.UK: Great Britain pet health certificate",
+          "url": "https://www.gov.uk/bring-pet-to-great-britain/great-britain-pet-health-certificate",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23"
+    },
+    "EU": {
+      "name": "European Union",
+      "classification": "UAE is listed (Annex II, Implementing Reg. (EU) 2026/636): no rabies blood test",
+      "status": "verified",
+      "min_lead_days_from_scratch": 25,
+      "min_lead_days_if_vaccinated": 10,
+      "steps": [
+        {
+          "id": "eu-chip",
+          "title": "Microchip",
+          "detail": "Vaccine date must not precede the microchip date.",
+          "rule": "before rabies vaccine"
+        },
+        {
+          "id": "eu-rabies",
+          "title": "Rabies vaccination",
+          "detail": "Dog at least 12 weeks old at vaccination; validity starts 21 days after primary vaccination.",
+          "window": {
+            "to": -21
+          }
+        },
+        {
+          "id": "eu-ahc",
+          "title": "EU animal health certificate",
+          "detail": "Issued by an official (or authorised + endorsed) vet; valid 10 days from issue until checks at the EU point of entry; then 6 months for onward EU travel (or until rabies vaccine expires).",
+          "window": {
+            "from": -10,
+            "to": -1
+          }
+        },
+        {
+          "id": "eu-echino",
+          "title": "Tapeworm (Echinococcus) treatment",
+          "detail": "Only for Finland, Ireland, Malta (and Northern Ireland, Norway): 24–120 hours before entry.",
+          "window": {
+            "from": -5,
+            "to": -1
+          },
+          "conditional": "FI/IE/MT only"
+        },
+        {
+          "id": "eu-declaration",
+          "title": "Owner declaration (non-commercial)",
+          "detail": "Owner must travel with the pet or within 5 days of it; max 5 pets."
+        },
+        {
+          "id": "eu-poe",
+          "title": "Travellers' point of entry",
+          "detail": "Enter through a designated travellers' point of entry for document and ID checks."
+        }
+      ],
+      "sources": [
+        {
+          "title": "European Commission: Bringing a pet into the EU from a non-EU country",
+          "url": "https://food.ec.europa.eu/animals/live-animal-movements/dogs-cats-and-ferrets/bringing-pet-eu-non-eu-country_en",
+          "official": true
+        },
+        {
+          "title": "European Commission: Listing of non-EU countries",
+          "url": "https://food.ec.europa.eu/animals/live-animal-movements/dogs-cats-and-ferrets/listing-territories-and-non-eu-countries_en",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23"
+    },
+    "FR": {
+      "name": "France",
+      "classification": "EU rules apply: UAE is listed (Annex II, Implementing Reg. (EU) 2026/636), so no rabies blood test",
+      "status": "verified",
+      "min_lead_days_from_scratch": 25,
+      "min_lead_days_if_vaccinated": 10,
+      "steps": [
+        {
+          "id": "fr-chip",
+          "title": "Microchip",
+          "detail": "Vaccine date must not precede the microchip date.",
+          "rule": "before rabies vaccine"
+        },
+        {
+          "id": "fr-rabies",
+          "title": "Rabies vaccination",
+          "detail": "Dog at least 12 weeks old at vaccination; validity starts 21 days after primary vaccination.",
+          "window": {
+            "to": -21
+          }
+        },
+        {
+          "id": "fr-ahc",
+          "title": "EU animal health certificate",
+          "detail": "Issued by an official (or authorised + endorsed) vet; valid 10 days from issue until checks at the EU point of entry; then 6 months for onward EU travel (or until rabies vaccine expires).",
+          "window": {
+            "from": -10,
+            "to": -1
+          }
+        },
+        {
+          "id": "fr-declaration",
+          "title": "Owner declaration (non-commercial)",
+          "detail": "Owner must travel with the pet or within 5 days of it; max 5 pets."
+        },
+        {
+          "id": "fr-poe",
+          "title": "Travellers' point of entry",
+          "detail": "Enter through a designated travellers' point of entry for document and ID checks."
+        },
+        {
+          "id": "fr-breeds",
+          "title": "France dangerous-dog rules",
+          "detail": "France restricts 'category 1' attack-type dogs (import of these is understood to be banned) and requires a detention permit for category 2. Check your dog's breed or type before booking.",
+          "conditional": "to confirm"
+        }
+      ],
+      "sources": [
+        {
+          "title": "European Commission: Bringing a pet into the EU from a non-EU country",
+          "url": "https://food.ec.europa.eu/animals/live-animal-movements/dogs-cats-and-ferrets/bringing-pet-eu-non-eu-country_en",
+          "official": true
+        },
+        {
+          "title": "European Commission: Listing of non-EU countries",
+          "url": "https://food.ec.europa.eu/animals/live-animal-movements/dogs-cats-and-ferrets/listing-territories-and-non-eu-countries_en",
+          "official": true
+        },
+        {
+          "title": "Ministère de l'Agriculture: chiens de catégorie 1 et 2",
+          "url": "https://agriculture.gouv.fr/les-chiens-de-categorie-1-et-2-et-les-chiens-dangereux",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23",
+      "todo": "Read the French ministry page on category 1/2 dogs (blocked automated reading) and confirm the import ban wording."
+    },
+    "US": {
+      "name": "United States",
+      "classification": "UAE is on CDC's high-risk dog rabies list (updated 15 Apr 2026)",
+      "status": "verified",
+      "min_age_months": 6,
+      "min_lead_days_from_scratch": 58,
+      "min_lead_days_if_vaccinated": 28,
+      "steps": [
+        {
+          "id": "us-chip",
+          "title": "Microchip",
+          "detail": "Implanted before the rabies vaccine or the vaccine is invalid.",
+          "rule": "before rabies vaccine"
+        },
+        {
+          "id": "us-rabies",
+          "title": "Rabies vaccination",
+          "detail": "First vaccine at 12 weeks or older and at least 28 days before entry. Dog must be at least 6 months old on arrival.",
+          "window": {
+            "to": -28
+          }
+        },
+        {
+          "id": "us-titer",
+          "title": "Rabies serology titer (CDC-approved lab)",
+          "detail": "Blood drawn at least 30 days after first valid vaccine and at least 28 days before entry. Without a valid titer the dog must do a 28-day quarantine at a CDC-registered facility.",
+          "window": {
+            "to": -28
+          }
+        },
+        {
+          "id": "us-acf",
+          "title": "Reserve CDC-registered animal care facility",
+          "detail": "Mandatory for foreign-vaccinated dogs from high-risk countries: exam + revaccination (+28-day quarantine if no valid titer). Fly directly into that airport.",
+          "window": {
+            "to": -30
+          }
+        },
+        {
+          "id": "us-cert",
+          "title": "Certification of Foreign Rabies Vaccination and Microchip",
+          "detail": "Completed by your vet and endorsed by an official government vet no more than 30 days before travel; single use.",
+          "window": {
+            "from": -30,
+            "to": -1
+          }
+        },
+        {
+          "id": "us-form",
+          "title": "CDC Dog Import Form",
+          "detail": "Online, free; recommended a few days before travel. Receipt valid only for the stated arrival date and airport.",
+          "window": {
+            "from": -7,
+            "to": -1
+          }
+        }
+      ],
+      "sources": [
+        {
+          "title": "CDC: High-risk countries for dog rabies",
+          "url": "https://www.cdc.gov/importation/dogs/high-risk-countries.html",
+          "official": true
+        },
+        {
+          "title": "CDC: Foreign-vaccinated dogs from high-risk countries",
+          "url": "https://www.cdc.gov/importation/dogs/foreign-vaccinated-high-risk-countries.html",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23"
+    },
+    "CA": {
+      "name": "Canada",
+      "classification": "UAE is not on CFIA's rabies-free list: a rabies vaccination certificate is required",
+      "status": "partial",
+      "min_lead_days_from_scratch": 30,
+      "min_lead_days_if_vaccinated": 7,
+      "lead_note": "No official waiting period found after vaccination; we plan 30 days from scratch as a buffer.",
+      "steps": [
+        {
+          "id": "ca-rabies",
+          "title": "Rabies vaccination certificate",
+          "detail": "Required for dogs over 3 months. Issued by a licensed vet, in English or French, identifying the dog (breed, colour, weight) and showing current vaccination with vaccine name, date and validity.",
+          "window": {
+            "to": -7
+          }
+        },
+        {
+          "id": "ca-healthcert",
+          "title": "Health certificate (puppies only)",
+          "detail": "Dogs 8 months or older travelling as personal pets need only the rabies certificate. Unaccompanied dogs under 8 months need a vet health certificate issued within 72 hours of arrival.",
+          "conditional": "under 8 months"
+        },
+        {
+          "id": "ca-chip",
+          "title": "Microchip (recommended)",
+          "detail": "Not listed by CFIA for personal pets, but it ties the dog to its paperwork. Airlines and the UAE export side expect one."
+        },
+        {
+          "id": "ca-arrival",
+          "title": "Border inspection",
+          "detail": "Canada Border Services Agency checks documents on arrival and may refer non-compliant dogs to CFIA. No quarantine for compliant personal pets."
+        }
+      ],
+      "alerts": [
+        "Since 28 Sep 2022 Canada bans commercial dogs (resale, adoption, breeding) from countries at high risk of dog rabies. Personal pets travelling with their owner are not described as commercial; confirm if your dog is a recent rescue being rehomed."
+      ],
+      "sources": [
+        {
+          "title": "CFIA: Bringing animals to Canada (personal pets)",
+          "url": "https://inspection.canada.ca/importing-food-plants-animals/pets",
+          "official": true
+        },
+        {
+          "title": "CFIA: Dogs (commercial import, high-risk ban)",
+          "url": "https://inspection.canada.ca/en/importing-food-plants-animals/pets/dogs",
+          "official": true
+        },
+        {
+          "title": "USDA APHIS: Pet travel to Canada (relays CFIA rules)",
+          "url": "https://www.aphis.usda.gov/pet-travel/us-to-another-country-export/pet-travel-us-canada",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23",
+      "todo": "CFIA personal-pet dog page failed to load; confirm certificate contents and the high-risk ban's scope for personal pets."
+    },
+    "AU": {
+      "name": "Australia",
+      "classification": "UAE is an approved Group 3 country (rabies present but controlled)",
+      "status": "partial",
+      "min_lead_days_from_scratch": 210,
+      "min_lead_days_if_vaccinated": 185,
+      "steps": [
+        {
+          "id": "au-chip",
+          "title": "Microchip",
+          "detail": "Microchip number must appear on the permit, every lab report, the RNATT declaration and the health certificate."
+        },
+        {
+          "id": "au-idcheck",
+          "title": "Identity check by government vet (optional, recommended)",
+          "detail": "Done before the RNATT blood draw; cuts minimum quarantine from 30 to 10 days."
+        },
+        {
+          "id": "au-rabies",
+          "title": "Rabies vaccination",
+          "detail": "Must be current at RNATT and export."
+        },
+        {
+          "id": "au-rnatt",
+          "title": "RNATT blood test",
+          "detail": "Export at least 180 days after the date the sample arrives at the lab; RNATT valid 12 months from collection.",
+          "window": {
+            "from": -365,
+            "to": -180
+          }
+        },
+        {
+          "id": "au-permit",
+          "title": "Import permit (BICON)",
+          "detail": "Apply after the RNATT declaration is in place; book Mickleham quarantine."
+        },
+        {
+          "id": "au-tests",
+          "title": "Pre-export tests",
+          "detail": "Leishmania (all dogs), Brucella canis (entire dogs), Ehrlichia canis within 45 days of export, per DAFF-negotiated certificates (UAE certificate to confirm).",
+          "window": {
+            "from": -45,
+            "to": -2
+          }
+        },
+        {
+          "id": "au-quarantine",
+          "title": "Post-arrival quarantine",
+          "detail": "Mickleham, Victoria: minimum 10 days with identity check, 30 days without."
+        }
+      ],
+      "alerts": [
+        "DAFF asks owners affected by the Middle East conflict to contact the department (imports@aff.gov.au); requirements unchanged."
+      ],
+      "sources": [
+        {
+          "title": "DAFF: Step-by-step guides (country groups)",
+          "url": "https://www.agriculture.gov.au/cats-dogs/step-by-step-guides",
+          "official": true
+        },
+        {
+          "title": "DAFF: Rabies vaccination and tests",
+          "url": "https://www.agriculture.gov.au/cats-dogs/rabies-neutralising-antibody",
+          "official": true
+        },
+        {
+          "title": "DAFF: Cats and dogs FAQ (RNATT validity)",
+          "url": "https://agriculture.gov.au/cats-dogs/frequently-asked-questions",
+          "official": true
+        },
+        {
+          "title": "UK APHA 2580EHC dog to Australia (test windows, reference)",
+          "url": "https://assets.publishing.service.gov.uk/media/64132512e90e077693bd6841/2580EHC_V10.pdf",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23",
+      "todo": "DAFF Group 3 dog guide blocked automated reading; confirm test list and RNATT-to-vaccine gap against the UAE-specific certificate."
+    },
+    "NZ": {
+      "name": "New Zealand",
+      "classification": "Category 3 (rabies controlled) per secondary sources; category list sits in MPI-STD-SAA Schedule 9",
+      "status": "partial",
+      "min_age_months": 9,
+      "min_lead_days_from_scratch": 190,
+      "min_lead_days_if_vaccinated": 190,
+      "steps": [
+        {
+          "id": "nz-idcheck",
+          "title": "Official vet microchip ID check",
+          "detail": "If RNATT sample is 6–12 months before shipment: scan before the sample. If 3–6 months: first scan at least 6 months before shipment, second before the sample. Required for all imports from 1 Apr 2027 (checks from 1 Oct 2026).",
+          "window": {
+            "to": -183
+          }
+        },
+        {
+          "id": "nz-rabies",
+          "title": "Rabies vaccination",
+          "detail": "At 12 weeks or older; continuously valid; a primary vaccination must be at least 6 months before shipment.",
+          "window": {
+            "to": -183
+          }
+        },
+        {
+          "id": "nz-rnatt",
+          "title": "RNATT blood test",
+          "detail": "Sample 3–12 months before shipment, result at least 0.5 IU/mL.",
+          "window": {
+            "from": -365,
+            "to": -91
+          }
+        },
+        {
+          "id": "nz-permit",
+          "title": "Import permit + quarantine booking",
+          "detail": "Apply at least 8 weeks before; allow 30 working days. Include rabies records, RNATT, Rabies Certification Form, signed quarantine booking.",
+          "window": {
+            "to": -56
+          }
+        },
+        {
+          "id": "nz-ext1",
+          "title": "External parasite treatment #1",
+          "detail": "At least 14 days before the Babesia gibsoni blood sample; continuous protection to shipment.",
+          "window": {
+            "from": -44,
+            "to": -14
+          }
+        },
+        {
+          "id": "nz-int1",
+          "title": "Internal parasite treatment #1",
+          "detail": "Within 30 days before shipment and at least 14 days before treatment #2.",
+          "window": {
+            "from": -30,
+            "to": -19
+          }
+        },
+        {
+          "id": "nz-bloods",
+          "title": "Blood tests",
+          "detail": "Babesia gibsoni (IFA/ELISA + PCR), Leishmania, Leptospira (or treatment), heartworm (if 7+ months), Brucella canis (entire dogs): samples within 30 days before shipment.",
+          "window": {
+            "from": -30,
+            "to": -3
+          }
+        },
+        {
+          "id": "nz-ext2",
+          "title": "External parasite treatment #2",
+          "detail": "Within 16 days before shipment.",
+          "window": {
+            "from": -16,
+            "to": -2
+          }
+        },
+        {
+          "id": "nz-int2",
+          "title": "Internal parasite + heartworm + Angiostrongylus treatment",
+          "detail": "Within 5 days before shipment.",
+          "window": {
+            "from": -5,
+            "to": -1
+          }
+        },
+        {
+          "id": "nz-inspect",
+          "title": "Pre-export vet inspection",
+          "detail": "Within 2 days before shipment; free of parasites, disease signs, recent bites.",
+          "window": {
+            "from": -2,
+            "to": 0
+          }
+        },
+        {
+          "id": "nz-arrival",
+          "title": "Arrival and quarantine",
+          "detail": "Manifested cargo into Auckland or Christchurch only; minimum 10 days in an MPI-approved facility."
+        }
+      ],
+      "banned_breeds": [
+        "Brazilian Fila",
+        "Dogo Argentino",
+        "Japanese Tosa",
+        "Perro de Presa Canario",
+        "American Pit Bull Terrier (type)"
+      ],
+      "alerts": [
+        "Transition: 2021 IHS may be used until 1 Apr 2027; this database uses the 2026 IHS."
+      ],
+      "sources": [
+        {
+          "title": "MPI: Import Health Standard Cats and Dogs 2026 (CATSDOGS.GEN)",
+          "url": "https://www.mpi.govt.nz/dmsdocument/71909-Cats-and-Dogs-2026-Import-Health-Standard",
+          "official": true
+        },
+        {
+          "title": "MPI: Bringing cats and dogs to NZ",
+          "url": "https://www.mpi.govt.nz/bring-send-to-nz/pets-travelling-to-nz/bringing-cats-and-dogs-to-nz",
+          "official": true
+        }
+      ],
+      "last_verified": "2026-10-23",
+      "todo": "Confirm UAE's category in MPI-STD-SAA Schedule 9 before launch."
+    },
+    "RU": {
+      "name": "Russia",
+      "classification": "No rabies blood test for any origin; up to 2 pets per owner without a Rosselkhoznadzor permit",
+      "status": "partial",
+      "min_lead_days_from_scratch": 21,
+      "min_lead_days_if_vaccinated": 14,
+      "steps": [
+        {
+          "id": "ru-chip",
+          "title": "Microchip (recommended)",
+          "detail": "Identification is required; an ISO microchip is the safest way to match the dog to its papers."
+        },
+        {
+          "id": "ru-rabies",
+          "title": "Rabies vaccination",
+          "detail": "At least 20 days before travel and within the last 12 months (Russia counts one year, even for 3-year vaccines).",
+          "window": {
+            "from": -365,
+            "to": -20
+          }
+        },
+        {
+          "id": "ru-vaccines",
+          "title": "Other core vaccines",
+          "detail": "Distemper, hepatitis, parvovirus, adenovirus and leptospirosis."
+        },
+        {
+          "id": "ru-exam",
+          "title": "Clinical exam and vet passport / certificate",
+          "detail": "Exam recorded in the vet passport within 14 days before travel. Up to 2 pets with their owner travel on the vet passport; more pets, or a pet travelling without its owner, needs a Rosselkhoznadzor permit and an official certificate.",
+          "window": {
+            "from": -14,
+            "to": -1
+          }
+        }
+      ],
+      "alerts": [
+        "Check current flight routes from the UAE and airline live-animal rules for Russia before booking."
+      ],
+      "sources": [
+        {
+          "title": "Rosselkhoznadzor (fsvps.gov.ru)",
+          "url": "https://fsvps.gov.ru",
+          "official": true
+        },
+        {
+          "title": "Vidal.ru: Rosselkhoznadzor rules for pets returning to Russia (May 2020)",
+          "url": "https://www.vidal.ru/veterinar/novosti/8990",
+          "official": false
+        },
+        {
+          "title": "Zoovet Travel: Russia entry requirements 2026",
+          "url": "https://zoovettravel.com/atlas/rusia-en.html",
+          "official": false
+        }
+      ],
+      "last_verified": "2026-10-23",
+      "todo": "Only secondary sources so far; confirm on fsvps.gov.ru (EAEU Decision 317, ch. 15 and 40) before launch."
+    }
+  }
+}
