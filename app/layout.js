@@ -1,5 +1,6 @@
 import './globals.css';
 import Link from 'next/link';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   metadataBase: new URL('https://wagport.co'),
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
             </Link>
             <nav className="top">
               <Link href="/guides/">Route guides</Link>
+              <Link href="/learn/">Learn</Link>
               <a href="mailto:hello@wagport.co">Contact</a>
             </nav>
           </header>
@@ -45,6 +47,7 @@ export default function RootLayout({ children }) {
             <span><Link href="/terms/">Terms and disclaimer</Link></span>
           </footer>
         </div>
+        <Analytics />
       </body>
     </html>
   );

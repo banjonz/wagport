@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import RouteCheck from './components/RouteCheck';
+import articles from '../data/articles';
 import { RULES, LAUNCH, SLUGS, routeName } from './lib/routes';
 
 export default function Home() {
@@ -47,6 +48,16 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="more">
+        <h2>Questions people ask</h2>
+        <ul className="routes-list">
+          {articles.slice(0, 6).map((a) => (
+            <li key={a.slug}><Link href={`/learn/${a.slug}/`}>{a.title}</Link></li>
+          ))}
+        </ul>
+        <p><Link href="/learn/" style={{ color: 'var(--accent)' }}>All answers</Link></p>
       </section>
 
       <p className="fine">

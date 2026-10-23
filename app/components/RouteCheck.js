@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { track } from '@vercel/analytics';
 import { RULES, LAUNCH } from '../lib/routes';
 
 const DAY = 864e5;
@@ -30,6 +31,20 @@ export default function RouteCheck({ initialKey = 'GB' }) {
     setToday(t);
     setTravel(iso(addDays(t, 45)));
   }, []);
+
+  // Count a completed check once the visitor has changed a field from the defaults.
+  // One event per route per visit, so the count reflects people, not keystrokes.
+  const [touched, setTouched] = useState(false);
+  const tracked = useRef(new Set());
+  useEffect(() => {
+    if (!touched || !travel || tracked.current.has(dest)) return;
+    const t = setTimeout(() => {
+      tracked.current.add(dest);
+      try { track('route_check', { route: dest }); } catch (e) {}
+    }, 1500);
+    return () => clearTimeout(t);
+  }, [touched, dest, travel, age, vacc, desexed]);
+  const touch = (fn) => (e) => { setTouched(true); fn(e); };
 
   const launch = Object.entries(RULES.routes).filter(([k]) => LAUNCH.includes(k));
   const preview = Object.entries(RULES.routes).filter(([k]) => !LAUNCH.includes(k));
@@ -111,7 +126,7 @@ export default function RouteCheck({ initialKey = 'GB' }) {
       <form onSubmit={(e) => e.preventDefault()} noValidate>
         <div>
           <label htmlFor="dest">Moving to</label>
-          <select id="dest" value={dest} onChange={(e) => setDest(e.target.value)}>
+          <select id="dest" value={dest} onChange={touch((e) => setDest(e.target.value))}>
             <optgroup label="Launch routes">
               {launch.map(([k, r]) => (
                 <option key={k} value={k}>{k === 'EU' ? 'European Union (other countries)' : r.name}</option>
@@ -126,21 +141,21 @@ export default function RouteCheck({ initialKey = 'GB' }) {
         </div>
         <div>
           <label htmlFor="travel">Dog&apos;s travel date</label>
-          <input type="date" id="travel" value={travel} onChange={(e) => setTravel(e.target.value)} />
+          <input type="date" id="travel" value={travel} onChange={touch((e) => setTravel(e.target.value))} />
         </div>
         <div>
           <label htmlFor="age">Dog&apos;s age on travel day (months)</label>
           <input type="number" id="age" min="2" max="240" value={age}
-            onChange={(e) => setAge(+e.target.value || 0)} />
+            onChange={touch((e) => setAge(+e.target.value || 0))} />
         </div>
         <div>
           <span className="lbl">Already done</span>
           <label className="check">
-            <input type="checkbox" id="vacc" checked={vacc} onChange={(e) => setVacc(e.target.checked)} />
+            <input type="checkbox" id="vacc" checked={vacc} onChange={touch((e) => setVacc(e.target.checked))} />
             Microchipped, then rabies-vaccinated more than 30 days ago, and the vaccine is still valid
           </label>
           <label className="check" style={{ marginTop: 8 }}>
-            <input type="checkbox" id="desexed" checked={desexed} onChange={(e) => setDesexed(e.target.checked)} />
+            <input type="checkbox" id="desexed" checked={desexed} onChange={touch((e) => setDesexed(e.target.checked))} />
             Desexed (spayed or neutered)
           </label>
         </div>
